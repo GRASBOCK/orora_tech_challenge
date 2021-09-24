@@ -1,14 +1,24 @@
-import matplotlib.pyplot as plt
-import netCDF4
+from deps.detection import hotspots
+from deps.util import write_geojson_file
 
 # load dataset
-dir="C:/Users/grasb/Downloads/Suomi-NPP_sample_data"
-file="VNP02MOD_NRT.A2020233.1000.001.nc"
-nc = netCDF4.Dataset(dir + "/" + file)
+dir = "C:/Users/grasb/Downloads/Suomi-NPP_sample_data"
+files = [
+	("VNP02MOD_NRT.A2020233.1000.001.nc","VNP03MOD_NRT.A2020233.1000.001.nc"),
+	("VNP02MOD_NRT.A2020233.2118.001.nc","VNP03MOD_NRT.A2020233.2118.001.nc"),
+	("VNP02MOD_NRT.A2020234.0942.001.nc","VNP03MOD_NRT.A2020234.0942.001.nc"),
+	("VNP02MOD_NRT.A2020234.2100.001.nc","VNP03MOD_NRT.A2020234.2100.001.nc"),
+	]
 
-# extract data
-m13_data = nc['observation_data']['M13'][:].T # really Transpose?
+i = 0
+for (file_l1b, file_geo) in files:
+	l1b_filepath = dir + "/" + file_l1b
+	geo_filepath = dir + "/" + file_geo
 
-# plot
-plt.imshow(m13_data, cmap='jet', interpolation='nearest')
-plt.show()
+	hotspot_coords = hotspots(l1b_filepath, geo_filepath)
+
+	output_path = "%i.geojson"%i
+	write_geojson_file(output_path, hotspot_coords)
+
+	print(output_path, "written")
+	i += 1
