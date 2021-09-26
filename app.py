@@ -1,5 +1,5 @@
 from deps.detection import hotspots
-from deps.util import write_geojson_file
+from deps.geojson_util import point_features, polygon_features, write_geojson_file
 
 # load dataset
 dir = "C:/Users/grasb/Downloads/Suomi-NPP_sample_data"
@@ -14,11 +14,13 @@ i = 0
 for (file_l1b, file_geo) in files:
 	l1b_filepath = dir + "/" + file_l1b
 	geo_filepath = dir + "/" + file_geo
-
-	hotspot_coords = hotspots(l1b_filepath, geo_filepath)
-
+	# detection
+	points, polygons = hotspots(l1b_filepath, geo_filepath)
+	# geojson
+	#features = point_features(points)
+	features = polygon_features(polygons)
 	output_path = "%i.geojson"%i
-	write_geojson_file(output_path, hotspot_coords)
+	write_geojson_file(output_path, features)
 
 	print(output_path, "written")
 	i += 1
