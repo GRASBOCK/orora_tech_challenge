@@ -8,8 +8,3 @@ Requires the following python libraries:
 - opencv
 - numpy
 - geojson
-
-ToDos:
-
-- clusters shouldn't show lines. There might be better alternatives to use than the opencv findContours algorithm for such tasks
-- possibly filtering
