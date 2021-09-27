@@ -17,8 +17,8 @@ for (file_l1b, file_geo) in files:
 	# detection
 	points, polygons = hotspots(l1b_filepath, geo_filepath)
 	# geojson
-	#features = point_features(points)
-	features = polygon_features(polygons)
+	features = point_features(points)
+	features = polygon_features(polygons, features)
 	output_path = "%i.geojson"%i
 	write_geojson_file(output_path, features)
 
