@@ -5,6 +5,8 @@ The geojson files can be viewed at ![geojson.io](https://geojson.io)
 
 <p align="center"><img src="https://i.imgur.com/6xypuYd.png" width="300"></p>
 
+Requires the following python libraries:
+
 - opencv
 - numpy
 - geojson
