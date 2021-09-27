@@ -6,8 +6,8 @@ import numpy
 def coords_from_point(point, latitude_map, longitude_map):
 	"""looks up point in latitude and longitude map and returns the geographical coordinate associated with that point"""
 	# ordering of indices can be verified by looking at geojson.io
-	lat = float(latitude_map[point[0]][point[1]])
-	lon = float(longitude_map[point[0]][point[1]])
+	lat = float(latitude_map[point[1]][point[0]])
+	lon = float(longitude_map[point[1]][point[0]])
 	coords = (lon, lat)
 	return coords
 
@@ -72,8 +72,8 @@ def hotspots(l1b_filepath: str, geo_filepath: str):
 		# it has more than one point -> add a polygon
 		polygon = []
 		for point in c:
-			polygon.append(get_coords((point[1], point[0])))
-		polygon.append(get_coords((c[0][1], c[0][0]))) # append first to close loop
+			polygon.append(get_coords(point))
+		polygon.append(get_coords(c[0])) # append first to close loop
 		polygons.append(polygon)
 
 	print("coordinates collected")
